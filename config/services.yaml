@@ -1,0 +1,43 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    tokens_creator.access_expiration_period: '%env(TOKEN_ACCESS_EXPIRATION_PERIOD)%'
+    tokens_creator.refresh_expiration_period: '%env(TOKEN_REFRESH_EXPIRATION_PERIOD)%'
+
+    amo_client_id: '%env(CLIENT_ID)%'
+    amo_secret_key: '%env(CLIENT_SECRET)%'
+    amo_auth_uri: '%env(CLIENT_REDIRECT_URI)%'
+    amo_acc_domain: '%env(ACCOUNT_DOMAIN)%'
+
+    phone_field_id: '%env(PHONE_FIELD_ID)%'
+    email_field_id: '%env(EMAIL_FIELD_ID)%'
+    age_field_id: '%env(AGE_FIELD_ID)%'
+    gender_field_id: '%env(GENDER_FIELD_ID)%'
+
+    male_enum_id: '%env(MALE_ENUM_ID)%'
+    female_enum_id: '%env(FEMALE_ENUM_ID)%'
+
+    catalog_id: '%env(CATALOG_ID)%'
+    product_field_code: '%env(PRODUCT_FIELD_CODE)%'
+    phone_field_code: '%env(PHONE_FIELD_CODE)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
