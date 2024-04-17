@@ -34,8 +34,20 @@ security:
             methods:
                 - get
 
+        user_auth_amo:
+            pattern: ^/api/users/auth_amo
+            security: false
+            methods:
+                - get
+
         user_auth:
             pattern: ^/api/users/auth$
+            security: false
+            methods:
+                - post
+
+        user_personal_data:
+            pattern: ^/api/users/personal_data
             security: false
             methods:
                 - post
