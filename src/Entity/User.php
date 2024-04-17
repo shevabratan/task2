@@ -12,11 +12,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\OpenApi\Model\Operation;
-use App\Component\User\Dtos\PersonalDataDto;
 use App\Component\User\Dtos\RefreshTokenRequestDto;
 use App\Component\User\Dtos\TokensDto;
-use App\Controller\amoCRM\AuthAmoCrm;
-use App\Controller\amoCRM\IntegratePersonalDataAction;
 use App\Controller\DeleteAction;
 use App\Controller\UserAboutMeAction;
 use App\Controller\UserAuthAction;
@@ -41,10 +38,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new GetCollection(
             normalizationContext: ['groups' => ['users:read']],
-        ),
-        new Get(
-            uriTemplate: 'users/auth_amo',
-            controller: AuthAmoCrm::class
         ),
         new Get(
             security: "object == user || is_granted('ROLE_ADMIN')",
@@ -96,12 +89,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             ),
             denormalizationContext: ['groups' => ['user:isUniqueUsername:write']],
             name: 'isUniqueUsername',
-        ),
-        new Post(
-            uriTemplate: 'users/personal_data',
-            controller: IntegratePersonalDataAction::class,
-            denormalizationContext: ['groups' => ['user:personal_data:write']],
-            input: PersonalDataDto::class,
         ),
         new Put(
             uriTemplate: 'users/{id}/password',
